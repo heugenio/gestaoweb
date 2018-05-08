@@ -1,4 +1,4 @@
-package com.reviravollta.gestaoweb;
+package br.com.hjsystems.gestaoweb;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
