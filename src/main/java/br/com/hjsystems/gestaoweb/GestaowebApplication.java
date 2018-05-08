@@ -1,4 +1,4 @@
-package com.reviravollta.gestaoweb;
+package br.com.hjsystems.gestaoweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

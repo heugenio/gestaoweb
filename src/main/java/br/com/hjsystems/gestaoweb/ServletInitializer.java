@@ -1,4 +1,4 @@
-package com.reviravollta.gestaoweb;
+package br.com.hjsystems.gestaoweb;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
