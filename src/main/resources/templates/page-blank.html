@@ -9,7 +9,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="description" content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
     <meta name="keywords" content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-    <title>Pagina em Branco | Gestão Web - Gerenciador Financeiro</title>
+    <title>Página em Branco | Gestão Web - Gerenciador Financeiro</title>
     <!-- Favicons-->
     <link rel="icon" th:href="@{/images/favicon/favicon-32x32.png}" sizes="32x32">
     <!-- Favicons-->
@@ -60,11 +60,6 @@
             </div>
             <ul class="right hide-on-med-and-down">
               <li>
-                <a href="javascript:void(0);" class="waves-effect waves-block waves-light translation-button" data-activates="translation-dropdown">
-                  <span class="flag-icon flag-icon-gb"></span>
-                </a>
-              </li>
-              <li>
                 <a href="javascript:void(0);" class="waves-effect waves-block waves-light toggle-fullscreen">
                   <i class="material-icons">settings_overscan</i>
                 </a>
@@ -88,25 +83,6 @@
                 <a href="#" data-activates="chat-out" class="waves-effect waves-block waves-light chat-collapse">
                   <i class="material-icons">format_indent_increase</i>
                 </a>
-              </li>
-            </ul>
-            <!-- translation-button -->
-            <ul id="translation-dropdown" class="dropdown-content">
-              <li>
-                <a href="#!" class="grey-text text-darken-1">
-                  <i class="flag-icon flag-icon-gb"></i> English</a>
-              </li>
-              <li>
-                <a href="#!" class="grey-text text-darken-1">
-                  <i class="flag-icon flag-icon-fr"></i> French</a>
-              </li>
-              <li>
-                <a href="#!" class="grey-text text-darken-1">
-                  <i class="flag-icon flag-icon-cn"></i> Chinese</a>
-              </li>
-              <li>
-                <a href="#!" class="grey-text text-darken-1">
-                  <i class="flag-icon flag-icon-de"></i> German</a>
               </li>
             </ul>
             <!-- notifications-dropdown -->
@@ -182,23 +158,37 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-menu" href="/../documentation" data-activates="Pagesdropdown">
+                <a class="dropdown-menu" href="/../documentation" data-activates="Templatesdropdown">
                   <i class="material-icons">import_contacts</i>
                   <span>Documentarion</span>
                 </a>
               </li>
               <li>
-                <a class="dropdown-menu" href="https://pixinvent.ticksy.com" target="_blank" data-activates="Pagesdropdown">
+                <a class="dropdown-menu" href="https://pixinvent.ticksy.com" target="_blank" data-activates="Cardsdropdown">
                   <i class="material-icons">help_outline</i>
                   <span>Support</span>
                 </a>
               </li>
             </ul>
           </div>
-        </nav>        
+        </nav> 
         <!-- Pagesdropdown -->
-        <ul id="Pagesdropdown" class="dropdown-content dropdown-horizontal-list">          
-          <li class="active"><a href="page-blank.html">Blank</a></li>
+        <ul id="Pagesdropdown" class="dropdown-content dropdown-horizontal-list">
+          <li><a th:href="@{/}">eCommerce</a></li>
+        </ul>
+        <!-- Templatesdropdown -->
+        <ul id="Templatesdropdown" class="dropdown-content dropdown-horizontal-list">
+          <li><a th:href="@{/}" >Collapsible Menu</a></li>
+          <li><a href="../semi-dark-menu/">Semi Dark Menu</a></li>
+          <li><a href="../fixed-menu/">Fixed Menu</a></li>
+          <li><a href="../overlay-menu/">Overlay Menu</a></li>
+          <li><a href="../horizontal-menu/">Horizontal Menu</a></li>
+        </ul>
+        <!-- Cardsdropdown -->
+        <ul id="Cardsdropdown" class="dropdown-content dropdown-horizontal-list">
+          <li><a href="cards-basic.html">Basic</a></li>
+          <li><a href="cards-advance.html">Advance</a></li>
+          <li><a href="cards-extended.html">Extended</a></li>
         </ul>
       </div>
       <!-- end header nav-->
@@ -209,140 +199,9 @@
     <div id="main">
       <!-- START WRAPPER -->
       <div class="wrapper">
-        <!-- START LEFT SIDEBAR NAV-->
-        <aside id="left-sidebar-nav hide-on-large-only">
-          <ul id="slide-out" class="side-nav leftside-navigation">
-            <li class="no-padding">
-              <ul class="collapsible" data-collapsible="accordion">                
-                <li class="bold">
-                  <a class="collapsible-header  waves-effect waves-cyan active">
-                    <i class="material-icons">pages</i>
-                    <span>Pages</span>
-                  </a>
-                  <div class="collapsible-body">
-                    <ul>                      
-                      <li class="active">
-                        <a href="page-blank.html">
-                          <i class="material-icons">keyboard_arrow_right</i>
-                          <span>Blank</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </li>
-            <li class="li-hover">
-              <p class="ultra-small margin more-text">MORE</p>
-            </li>
-            <li class="no-padding">
-              <ul class="collapsible" data-collapsible="accordion">
-                <li class="bold">
-                  <a class="collapsible-header  waves-effect waves-cyan">
-                    <i class="material-icons">photo_filter</i>
-                    <span>Menu Levels</span>
-                  </a>
-                  <div class="collapsible-body">
-                    <ul class="collapsible" data-collapsible="accordion">
-                      <li>
-                        <a href="ui-basic-buttons.html">
-                          <i class="material-icons">keyboard_arrow_right</i>
-                          <span>Second level</span>
-                        </a>
-                      </li>
-                      <li class="bold">
-                        <a class="collapsible-header  waves-effect waves-cyan">
-                          <i class="material-icons">keyboard_arrow_right</i>
-                          <span>Second level child</span>
-                        </a>
-                        <div class="collapsible-body">
-                          <ul class="collapsible" data-collapsible="accordion">
-                            <li>
-                              <a href="ui-basic-buttons.html">
-                                <i class="material-icons">keyboard_arrow_right</i>
-                                <span>Third level</span>
-                              </a>
-                            </li>
-                            <li class="bold">
-                              <a class="collapsible-header  waves-effect waves-cyan">
-                                <i class="material-icons">keyboard_arrow_right</i>
-                                <span>Third level child</span>
-                              </a>
-                              <div class="collapsible-body">
-                                <ul class="collapsible" data-collapsible="accordion">
-                                  <li>
-                                    <a href="ui-basic-buttons.html">
-                                      <i class="material-icons">keyboard_arrow_right</i>
-                                      <span>Forth level</span>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="ui-extended-buttons.html">
-                                      <i class="material-icons">keyboard_arrow_right</i>
-                                      <span>Forth level</span>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-              </ul>
-            </li>           
-            <li>
-              <a href="changelogs.html">
-                <i class="material-icons">help_outline</i>
-                <span>Support</span>
-              </a>
-            </li>
-          </ul>
-          <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only">
-            <i class="material-icons">menu</i>
-          </a>
-        </aside>
-        <!-- END LEFT SIDEBAR NAV-->
         <!-- //////////////////////////////////////////////////////////////////////////// -->
         <!-- START CONTENT -->
         <section id="content">
-          <!--breadcrumbs start-->
-          <div id="breadcrumbs-wrapper">
-            <!-- Search for small screen -->
-            <div class="header-search-wrapper grey lighten-2 hide-on-large-only">
-              <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
-            </div>
-            <div class="container">
-              <div class="row">
-                <div class="col s10 m6 l6">
-                  <h5 class="breadcrumbs-title">Blank Page</h5>
-                  <ol class="breadcrumbs">
-                    <li><a href="index.html">Dashboard</a></li>
-                    <li><a href="#">Pages</a></li>
-                    <li class="active">Blank Page</li>
-                  </ol>
-                </div>
-                <div class="col s2 m6 l6">
-                  <a class="btn dropdown-settings waves-effect waves-light breadcrumbs-btn right" href="#!" data-activates="dropdown1">
-                    <i class="material-icons hide-on-med-and-up">settings</i>
-                    <span class="hide-on-small-onl">Settings</span>
-                    <i class="material-icons right">arrow_drop_down</i>
-                  </a>
-                  <ul id="dropdown1" class="dropdown-content">
-                    <li><a href="#!" class="grey-text text-darken-2">Access<span class="badge">1</span></a>
-                    </li>
-                    <li><a href="#!" class="grey-text text-darken-2">Profile<span class="new badge">2</span></a>
-                    </li>
-                    <li><a href="#!" class="grey-text text-darken-2">Notifications</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--breadcrumbs end-->
           <!--start container-->
           <div class="container">
             <div class="section">
@@ -382,6 +241,7 @@
           <!--end container-->
         </section>
         <!-- END CONTENT -->
+        
         <!-- //////////////////////////////////////////////////////////////////////////// -->
         <!-- START RIGHT SIDEBAR NAV-->
         <aside id="right-sidebar-nav">
