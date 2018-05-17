@@ -49,12 +49,20 @@
 			</dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/jstl/jstl -->
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
+		<dependency>
+			<groupId>jstl</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
+		<!-- Dependencias Locais -->
+		<dependency>
+			<groupId>br.inf.portalfiscal</groupId>
+			<artifactId>nfefacil</artifactId>
+			<version>3.108</version>
+			<scope>system</scope>
+			<systemPath>C:/Bibliotecas JAVA/nfefacil-3.108.jar</systemPath>
+		</dependency>
 
 	</dependencies>
 
