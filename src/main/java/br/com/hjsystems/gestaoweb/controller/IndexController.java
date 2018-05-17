@@ -9,7 +9,7 @@ public class IndexController {
 		
 	@RequestMapping("/")
     public String indexTemplate(Model model) {
-        return "page-blank";
+        return "index";
     }
-	
+
 }
