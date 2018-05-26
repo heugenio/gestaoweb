@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,7 +11,7 @@
 	content="Materialize is a Material Design Admin Template,It's modern, responsive and based on Material Design by Google. ">
 <meta name="keywords"
 	content="materialize, admin template, dashboard template, flat admin template, responsive admin template,">
-<title>P·gina em Branco | Gest„o Web - Gerenciador Financeiro</title>
+<title>P√°gina em Branco | Gest√£o Web - Gerenciador Financeiro</title>
 <!-- Favicons-->
 <link rel="icon" href="@{/images/favicon/favicon-32x32.png}"
 	sizes="32x32">
@@ -89,7 +88,7 @@
 					<ul id="notifications-dropdown" class="dropdown-content">
 						<li>
 							<h6>
-								NOTIFICA«’ES <span class="new badge">1</span>
+								NOTIFICA√á√ïES <span class="new badge">1</span>
 							</h6>
 						</li>
 						<li class="divider"></li>
@@ -105,7 +104,7 @@
 								class="material-icons">face</i> Perfil
 						</a></li>
 						<li><a href="#" class="grey-text text-darken-1"> <i
-								class="material-icons">settings</i> ConfiguraÁıes
+								class="material-icons">settings</i> Configura√ß√µes
 						</a></li>
 						<li><a href="#" class="grey-text text-darken-1"> <i
 								class="material-icons">live_help</i> Ajuda
@@ -138,7 +137,7 @@
 						<a href="index.html" class="brand-logo darken-1"> <img
 							src="@{/images/logo/materialize-logo.png}"
 							alt="Logo do Sistema"> <span
-							class="logo-text hide-on-med-and-down">Gest„o</span>
+							class="logo-text hide-on-med-and-down">Gest√£o</span>
 						</a> <a href="#" class="navbar-toggler"> <i class="material-icons">radio_button_unchecked</i>
 						</a>
 					</h1>
@@ -155,7 +154,7 @@
 									<ul>
 										<li class=""><a href="@{/}"> <i
 												class="material-icons">keyboard_arrow_right</i> <span>Ordem
-													de ServiÁo</span>
+													de Servi√ßo</span>
 										</a></li>
 										<li class=""><a href="@{/}"> <i
 												class="material-icons">keyboard_arrow_right</i> <span>Faturamento
@@ -187,7 +186,7 @@
 										</a></li>
 										<li class=""><a href="@{/}"> <i
 												class="material-icons">keyboard_arrow_right</i> <span>Registro
-													de Invent·rio</span>
+													de Invent√°rio</span>
 										</a></li>
 									</ul>
 								</div></li>
@@ -223,11 +222,11 @@
 								<div class="collapsible-body">
 									<ul>
 										<li class=""><a href="@{/}"> <i
-												class="material-icons">keyboard_arrow_right</i> <span>ManutenÁ„o
+												class="material-icons">keyboard_arrow_right</i> <span>Manuten√ß√£o
 													de Clientes</span>
 										</a></li>
 										<li class=""><a href="@{/}"> <i
-												class="material-icons">keyboard_arrow_right</i> <span>ManutenÁ„o
+												class="material-icons">keyboard_arrow_right</i> <span>Manuten√ß√£o
 													de Veiculos</span>
 										</a></li>
 									</ul>
@@ -294,11 +293,11 @@
 	<footer class="page-footer">
 		<div class="footer-copyright">
 			<div class="container">
-				<span>Copyright © <script type="text/javascript">
+				<span>Copyright ¬© <script type="text/javascript">
 					document.write(new Date().getFullYear());
 				</script>-2018 <a class="light-blue-text text-darken-3"
 					href="http://hjsystems.com.br" target="_blank">HJ-SYSTEMS Ltda</a>.
-					Todos os direitos s„o reservados.
+					Todos os direitos s√£o reservados.
 				</span>
 				<!-- <span class="right hide-on-small-only"> Design and Developed by <a class="grey-text text-lighten-4" href="https://pixinvent.com/">PIXINVENT</a></span>-->
 			</div>

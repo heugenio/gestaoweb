@@ -1,11 +1,7 @@
-/*================================================================================
-	Item Name: Materialize - Material Design Admin Template
-	Version: 4.0
-	Author: PIXINVENT
-	Author URL: https://themeforest.net/user/pixinvent/portfolio
-================================================================================
+/**
+ * Hj-Systems Ltda. Autor: Daniel Filho Data : 21/05/2018
+ */
 
-NOTE:
-------
-PLACE HERE YOUR OWN CSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
-WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+.selected {
+    background-color: #f5f5f5;
+}

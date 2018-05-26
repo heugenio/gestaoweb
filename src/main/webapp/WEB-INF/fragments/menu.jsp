@@ -180,7 +180,7 @@
 						</a>
 							<div class="collapsible-body">
 								<ul>
-									<li class=""><a href="!#"> <i class="material-icons">keyboard_arrow_right</i>
+									<li class=""><a href="${path}/clientes"> <i class="material-icons">keyboard_arrow_right</i>
 											<span>Manutenção de Clientes</span>
 									</a></li>
 									<li class=""><a href="!#"> <i class="material-icons">keyboard_arrow_right</i>
