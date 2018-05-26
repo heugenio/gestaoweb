@@ -101,7 +101,7 @@
 			<aside id="left-sidebar-nav" class="nav-collapsible nav-collapsed">
 			<div class="brand-sidebar">
 				<h1 class="logo-wrapper">
-					<a href="index.html" class="brand-logo darken-1"> <img
+					<a href="${path}" class="brand-logo darken-1"> <img
 						src="${path}/static/images/logo/materialize-logo.png"
 						alt="Logo do Sistema"> <span
 						class="logo-text hide-on-med-and-down">Gestão</span>
@@ -180,7 +180,7 @@
 						</a>
 							<div class="collapsible-body">
 								<ul>
-									<li class=""><a href="${path}/clientes"> <i class="material-icons">keyboard_arrow_right</i>
+									<li class=""><a href="${path}/clientes/manutencao"> <i class="material-icons">keyboard_arrow_right</i>
 											<span>Manutenção de Clientes</span>
 									</a></li>
 									<li class=""><a href="!#"> <i class="material-icons">keyboard_arrow_right</i>

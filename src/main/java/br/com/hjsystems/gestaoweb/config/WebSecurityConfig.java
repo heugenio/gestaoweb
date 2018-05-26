@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		http.authorizeRequests().antMatchers("/cliente/**").hasAnyRole("ADMIN").anyRequest().fullyAuthenticated().and().httpBasic();
+		http.authorizeRequests().antMatchers("/teste/**").hasAnyRole("ADMIN").anyRequest().fullyAuthenticated().and().httpBasic();
 	}
 	
 	@Bean

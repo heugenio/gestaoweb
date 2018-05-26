@@ -9,7 +9,6 @@ import br.com.hjsystems.gestaoweb.controller.AplicationController;
 
 @SpringBootApplication
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = {AplicationController.class})
 public class GestaowebApplication {
 
 	public static void main(String[] args) {
