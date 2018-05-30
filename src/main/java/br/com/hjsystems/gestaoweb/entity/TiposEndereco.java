@@ -7,28 +7,25 @@ package br.com.hjsystems.gestaoweb.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "TIPOS_ENDERECO", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "TIPOS_ENDERECO")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TiposEndereco.findAll", query = "SELECT t FROM TiposEndereco t"),
@@ -39,8 +36,6 @@ public class TiposEndereco implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "TPEN_ID")
     private String tpenId;
@@ -52,8 +47,6 @@ public class TiposEndereco implements Serializable {
     @Column(name = "TpEn_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tpEnLASTUPDATE;
-    @OneToMany(mappedBy = "tpenId")
-    private List<Enderecos> enderecosList;
 
     public TiposEndereco() {
     }
@@ -89,15 +82,6 @@ public class TiposEndereco implements Serializable {
 
     public void setTpEnLASTUPDATE(Date tpEnLASTUPDATE) {
         this.tpEnLASTUPDATE = tpEnLASTUPDATE;
-    }
-
-    @XmlTransient
-    public List<Enderecos> getEnderecosList() {
-        return enderecosList;
-    }
-
-    public void setEnderecosList(List<Enderecos> enderecosList) {
-        this.enderecosList = enderecosList;
     }
 
     @Override

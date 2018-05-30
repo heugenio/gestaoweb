@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "PAISES", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "PAISES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Paises.findAll", query = "SELECT p FROM Paises p"),
@@ -42,8 +42,6 @@ public class Paises implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "PAIS_ID")
     private String paisId;
@@ -67,11 +65,11 @@ public class Paises implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "PAIS_CODIGO_BACEN")
     private String paisCodigoBacen;
+    @OneToMany(mappedBy = "paisId")
+    private List<Estados> estadosList;
     @Column(name = "Pais_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date paisLASTUPDATE;
-    @OneToMany(mappedBy = "paisId")
-    private List<Estados> estadosList;
 
     public Paises() {
     }
@@ -136,15 +134,6 @@ public class Paises implements Serializable {
         this.paisLASTUPDATE = paisLASTUPDATE;
     }
 
-    @XmlTransient
-    public List<Estados> getEstadosList() {
-        return estadosList;
-    }
-
-    public void setEstadosList(List<Estados> estadosList) {
-        this.estadosList = estadosList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -168,6 +157,15 @@ public class Paises implements Serializable {
     @Override
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Paises[ paisId=" + paisId + " ]";
+    }
+
+    @XmlTransient
+    public List<Estados> getEstadosList() {
+        return estadosList;
+    }
+
+    public void setEstadosList(List<Estados> estadosList) {
+        this.estadosList = estadosList;
     }
     
 }

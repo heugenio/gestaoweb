@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "BAIRROS", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "BAIRROS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Bairros.findAll", query = "SELECT b FROM Bairros b"),
@@ -39,8 +39,6 @@ public class Bairros implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "BAIR_ID")
     private String bairId;
@@ -52,8 +50,6 @@ public class Bairros implements Serializable {
     @Column(name = "Bair_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date bairLASTUPDATE;
-    @OneToMany(mappedBy = "bairId")
-    private List<Enderecos> enderecosList;
 
     public Bairros() {
     }
@@ -89,15 +85,6 @@ public class Bairros implements Serializable {
 
     public void setBairLASTUPDATE(Date bairLASTUPDATE) {
         this.bairLASTUPDATE = bairLASTUPDATE;
-    }
-
-    @XmlTransient
-    public List<Enderecos> getEnderecosList() {
-        return enderecosList;
-    }
-
-    public void setEnderecosList(List<Enderecos> enderecosList) {
-        this.enderecosList = enderecosList;
     }
 
     @Override

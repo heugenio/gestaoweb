@@ -23,12 +23,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "PROFISSOES", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "PROFISSOES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Profissoes.findAll", query = "SELECT p FROM Profissoes p"),
@@ -39,19 +41,18 @@ public class Profissoes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "PROF_ID")
     private String profId;
     @Size(max = 40)
     @Column(name = "PROF_NOME")
     private String profNome;
+    @OneToMany(mappedBy = "profId")
+    @JsonIgnore
+    private List<Pessoas> pessoasList;
     @Column(name = "Prof_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date profLASTUPDATE;
-    @OneToMany(mappedBy = "profId")
-    private List<Pessoas> pessoasList;
 
     public Profissoes() {
     }
@@ -84,15 +85,6 @@ public class Profissoes implements Serializable {
         this.profLASTUPDATE = profLASTUPDATE;
     }
 
-    @XmlTransient
-    public List<Pessoas> getPessoasList() {
-        return pessoasList;
-    }
-
-    public void setPessoasList(List<Pessoas> pessoasList) {
-        this.pessoasList = pessoasList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -116,6 +108,15 @@ public class Profissoes implements Serializable {
     @Override
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Profissoes[ profId=" + profId + " ]";
+    }
+
+    @XmlTransient
+    public List<Pessoas> getPessoasList() {
+        return pessoasList;
+    }
+
+    public void setPessoasList(List<Pessoas> pessoasList) {
+        this.pessoasList = pessoasList;
     }
     
 }

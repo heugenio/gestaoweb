@@ -33,9 +33,11 @@ import br.com.hjsystems.gestaoweb.propertyeditors.CargosPropertyEditor;
 import br.com.hjsystems.gestaoweb.propertyeditors.NacionalidadesPropertyEditor;
 import br.com.hjsystems.gestaoweb.propertyeditors.ProfissoesPropertyEditor;
 import br.com.hjsystems.gestaoweb.repository.CargosRepository;
+import br.com.hjsystems.gestaoweb.repository.EnderecosRepository;
 import br.com.hjsystems.gestaoweb.repository.NacionalidadesRepository;
 import br.com.hjsystems.gestaoweb.repository.PessoasRepository;
 import br.com.hjsystems.gestaoweb.repository.ProfissoesRepository;
+import br.com.hjsystems.gestaoweb.repository.TelefonesRepository;
 import br.com.hjsystems.gestaoweb.utilitarios.Utilitarios;
 
 @Controller
@@ -57,6 +59,10 @@ public class ClientesController {
 	ProfissoesRepository profissaoRepo;
 	@Autowired
 	NacionalidadesRepository NacionalidadeRepo;
+	@Autowired
+	EnderecosRepository enderecosRepo;
+	@Autowired
+	TelefonesRepository telefoneRepo;
 	@Autowired
 	GeradorDto geraDto;
 
@@ -141,10 +147,14 @@ public class ClientesController {
 	@PostMapping("/deletar/{pessId}")
 	public ResponseEntity<String> deletar(@PathVariable String pessId ) {
 		try {
+			enderecosRepo.deleteByPessoa(pessRepo.findById(pessId).get());
+			telefoneRepo.deleteByPessoa(pessRepo.findById(pessId).get());
 			pessRepo.deleteById(pessId);
 			return new ResponseEntity<>("", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+			System.out.println(e.getMessage());
+			System.out.println(e.toString());
+			return new ResponseEntity<>(e.getMessage().toString(), HttpStatus.BAD_REQUEST);
 		}
 	}
 

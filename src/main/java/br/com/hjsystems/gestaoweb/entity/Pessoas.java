@@ -26,12 +26,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "PESSOAS", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "PESSOAS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pessoas.findAll", query = "SELECT p FROM Pessoas p"),
@@ -53,10 +55,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pessoas.findByPessDataAtualizacao", query = "SELECT p FROM Pessoas p WHERE p.pessDataAtualizacao = :pessDataAtualizacao")})
 public class Pessoas implements Serializable {
 
+    
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "PESS_ID")
     private String pessId;
@@ -64,7 +65,7 @@ public class Pessoas implements Serializable {
     @Column(name = "PESS_CPFCNPJ")
     private String pessCpfcnpj;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 250)
     @Column(name = "PESS_NOME")
     private String pessNome;
@@ -76,9 +77,6 @@ public class Pessoas implements Serializable {
     @Size(min = 1, max = 10)
     @Column(name = "PESS_FISICO_JURIDICO")
     private String pessFisicoJuridico;
-    @Column(name = "PESS_DATA_NASCIMENTO")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date pessDataNascimento;
     @Size(max = 10)
     @Column(name = "PESS_SEXO")
     private String pessSexo;
@@ -91,7 +89,7 @@ public class Pessoas implements Serializable {
     @Size(max = 125)
     @Column(name = "PESS_EMAIL")
     private String pessEmail;
-    @Lob
+    @Lob()
     @Size(max = 2147483647)
     @Column(name = "PESS_OBSERVACAO")
     private String pessObservacao;
@@ -99,16 +97,16 @@ public class Pessoas implements Serializable {
     @Column(name = "PESS_URL")
     private String pessUrl;
     @Basic(optional = false)
-    @NotNull
+    @NotNull()
     @Size(min = 1, max = 7)
     @Column(name = "PESS_SITUACAO")
     private String pessSituacao;
     @Size(max = 10)
     @Column(name = "PESS_CODIGO")
     private String pessCodigo;
-    @Size(max = 22)
-    @Column(name = "PESS_ENDE_ID")
-    private String pessEndeId;
+    @Column(name = "PESS_DATA_NASCIMENTO")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date pessDataNascimento;
     @Column(name = "Pess_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date pessLASTUPDATE;
@@ -127,8 +125,11 @@ public class Pessoas implements Serializable {
     @JoinColumn(name = "PROF_ID", referencedColumnName = "PROF_ID")
     @ManyToOne
     private Profissoes profId;
+    @Size(max = 22)
+    @Column(name = "PESS_ENDE_ID")
+    private String pessEndeId;
     @OneToMany(mappedBy = "pessId")
-    private List<Enderecos> enderecosList;
+    private List<Telefones> telefonesList;
 
     public Pessoas() {
     }
@@ -312,15 +313,6 @@ public class Pessoas implements Serializable {
         this.profId = profId;
     }
 
-    @XmlTransient
-    public List<Enderecos> getEnderecosList() {
-        return enderecosList;
-    }
-
-    public void setEnderecosList(List<Enderecos> enderecosList) {
-        this.enderecosList = enderecosList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -344,6 +336,15 @@ public class Pessoas implements Serializable {
     @Override
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Pessoas[ pessId=" + pessId + " ]";
+    }
+
+    @XmlTransient
+    public List<Telefones> getTelefonesList() {
+        return telefonesList;
+    }
+
+    public void setTelefonesList(List<Telefones> telefonesList) {
+        this.telefonesList = telefonesList;
     }
     
 }

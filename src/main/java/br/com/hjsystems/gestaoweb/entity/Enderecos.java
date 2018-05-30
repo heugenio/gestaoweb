@@ -23,12 +23,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "ENDERECOS", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "ENDERECOS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Enderecos.findAll", query = "SELECT e FROM Enderecos e"),
@@ -47,8 +49,6 @@ public class Enderecos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "ENDE_ID")
     private String endeId;
@@ -222,6 +222,7 @@ public class Enderecos implements Serializable {
         this.muniId = muniId;
     }
 
+    @JsonIgnore
     public Pessoas getPessId() {
         return pessId;
     }

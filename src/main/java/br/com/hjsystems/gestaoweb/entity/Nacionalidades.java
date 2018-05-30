@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "NACIONALIDADES", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "NACIONALIDADES")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Nacionalidades.findAll", query = "SELECT n FROM Nacionalidades n"),
@@ -37,10 +37,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Nacionalidades.findByNcndLASTUPDATE", query = "SELECT n FROM Nacionalidades n WHERE n.ncndLASTUPDATE = :ncndLASTUPDATE")})
 public class Nacionalidades implements Serializable {
 
+    
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "NCND_ID")
     private String ncndId;
@@ -50,8 +50,6 @@ public class Nacionalidades implements Serializable {
     @Column(name = "Ncnd_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ncndLASTUPDATE;
-    @OneToMany(mappedBy = "ncndId")
-    private List<Pessoas> pessoasList;
 
     public Nacionalidades() {
     }
@@ -84,15 +82,6 @@ public class Nacionalidades implements Serializable {
         this.ncndLASTUPDATE = ncndLASTUPDATE;
     }
 
-    @XmlTransient
-    public List<Pessoas> getPessoasList() {
-        return pessoasList;
-    }
-
-    public void setPessoasList(List<Pessoas> pessoasList) {
-        this.pessoasList = pessoasList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -117,5 +106,4 @@ public class Nacionalidades implements Serializable {
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Nacionalidades[ ncndId=" + ncndId + " ]";
     }
-    
 }

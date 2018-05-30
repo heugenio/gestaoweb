@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "CARGOS", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "CARGOS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Cargos.findAll", query = "SELECT c FROM Cargos c"),
@@ -40,8 +40,6 @@ public class Cargos implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "CARG_ID")
     private String cargId;
@@ -54,8 +52,6 @@ public class Cargos implements Serializable {
     @Column(name = "Carg_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date cargLASTUPDATE;
-    @OneToMany(mappedBy = "cargId")
-    private List<Pessoas> pessoasList;
 
     public Cargos() {
     }
@@ -96,15 +92,6 @@ public class Cargos implements Serializable {
         this.cargLASTUPDATE = cargLASTUPDATE;
     }
 
-    @XmlTransient
-    public List<Pessoas> getPessoasList() {
-        return pessoasList;
-    }
-
-    public void setPessoasList(List<Pessoas> pessoasList) {
-        this.pessoasList = pessoasList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -129,5 +116,4 @@ public class Cargos implements Serializable {
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Cargos[ cargId=" + cargId + " ]";
     }
-    
 }

@@ -26,12 +26,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "MUNICIPIOS", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "MUNICIPIOS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Municipios.findAll", query = "SELECT m FROM Municipios m"),
@@ -45,10 +47,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Municipios.findByMuniNomePadrao", query = "SELECT m FROM Municipios m WHERE m.muniNomePadrao = :muniNomePadrao")})
 public class Municipios implements Serializable {
 
+    
+
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "MUNI_ID")
     private String muniId;
@@ -57,9 +59,6 @@ public class Municipios implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "MUNI_NOME")
     private String muniNome;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "MUNI_DISTANCIA_KM")
-    private BigDecimal muniDistanciaKm;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
@@ -70,27 +69,27 @@ public class Municipios implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "MUNI_IBGE")
     private String muniIbge;
-    @Column(name = "Muni_LASTUPDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date muniLASTUPDATE;
     @Size(max = 10)
     @Column(name = "MUNI_COD_DMS")
     private String muniCodDms;
     @Size(max = 60)
     @Column(name = "MUNI_NOME_PADRAO")
     private String muniNomePadrao;
-    @OneToMany(mappedBy = "muniId")
-    private List<Pessoas> pessoasList;
-    @JoinColumn(name = "ESTA_ID", referencedColumnName = "ESTA_ID")
-    @ManyToOne
-    private Estados estaId;
     @OneToMany(mappedBy = "munMuniId")
     private List<Municipios> municipiosList;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "MUNI_DISTANCIA_KM")
+    private BigDecimal muniDistanciaKm;
+    @Column(name = "Muni_LASTUPDATE")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date muniLASTUPDATE;
+    @JoinColumn(name = "ESTA_ID", referencedColumnName = "ESTA_ID")
+    @ManyToOne
+    @JsonIgnore
+    private Estados estaId;
     @JoinColumn(name = "MUN_MUNI_ID", referencedColumnName = "MUNI_ID")
     @ManyToOne
     private Municipios munMuniId;
-    @OneToMany(mappedBy = "muniId")
-    private List<Enderecos> enderecosList;
 
     public Municipios() {
     }
@@ -170,15 +169,6 @@ public class Municipios implements Serializable {
         this.muniNomePadrao = muniNomePadrao;
     }
 
-    @XmlTransient
-    public List<Pessoas> getPessoasList() {
-        return pessoasList;
-    }
-
-    public void setPessoasList(List<Pessoas> pessoasList) {
-        this.pessoasList = pessoasList;
-    }
-
     public Estados getEstaId() {
         return estaId;
     }
@@ -187,30 +177,13 @@ public class Municipios implements Serializable {
         this.estaId = estaId;
     }
 
-    @XmlTransient
-    public List<Municipios> getMunicipiosList() {
-        return municipiosList;
-    }
-
-    public void setMunicipiosList(List<Municipios> municipiosList) {
-        this.municipiosList = municipiosList;
-    }
-
+    @JsonIgnore
     public Municipios getMunMuniId() {
         return munMuniId;
     }
 
     public void setMunMuniId(Municipios munMuniId) {
         this.munMuniId = munMuniId;
-    }
-
-    @XmlTransient
-    public List<Enderecos> getEnderecosList() {
-        return enderecosList;
-    }
-
-    public void setEnderecosList(List<Enderecos> enderecosList) {
-        this.enderecosList = enderecosList;
     }
 
     @Override
@@ -236,6 +209,15 @@ public class Municipios implements Serializable {
     @Override
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Municipios[ muniId=" + muniId + " ]";
+    }
+
+    @XmlTransient
+    public List<Municipios> getMunicipiosList() {
+        return municipiosList;
+    }
+
+    public void setMunicipiosList(List<Municipios> municipiosList) {
+        this.municipiosList = municipiosList;
     }
     
 }

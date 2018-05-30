@@ -25,12 +25,14 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "ESTADOS", catalog = "GriffePneus", schema = "dbo")
+@Table(name = "ESTADOS")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Estados.findAll", query = "SELECT e FROM Estados e"),
@@ -44,8 +46,6 @@ public class Estados implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 22)
     @Column(name = "ESTA_ID")
     private String estaId;
@@ -147,6 +147,7 @@ public class Estados implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public List<Municipios> getMunicipiosList() {
         return municipiosList;
     }
@@ -173,11 +174,6 @@ public class Estados implements Serializable {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return "br.com.hjsystems.gestaoweb.entity.Estados[ estaId=" + estaId + " ]";
     }
     
 }
