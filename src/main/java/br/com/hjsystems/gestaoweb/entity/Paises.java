@@ -20,6 +20,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -27,7 +28,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "PAISES")
+@Table(name = "PAISES", catalog = "GriffePneus", schema = "dbo")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Paises.findAll", query = "SELECT p FROM Paises p"),
     @NamedQuery(name = "Paises.findByPaisId", query = "SELECT p FROM Paises p WHERE p.paisId = :paisId"),

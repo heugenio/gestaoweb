@@ -23,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -30,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Daniel
  */
 @Entity
-@Table(name = "MUNICIPIOS")
+@Table(name = "MUNICIPIOS", catalog = "GriffePneus", schema = "dbo")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Municipios.findAll", query = "SELECT m FROM Municipios m"),
     @NamedQuery(name = "Municipios.findByMuniId", query = "SELECT m FROM Municipios m WHERE m.muniId = :muniId"),
@@ -87,6 +89,8 @@ public class Municipios implements Serializable {
     @JoinColumn(name = "MUN_MUNI_ID", referencedColumnName = "MUNI_ID")
     @ManyToOne
     private Municipios munMuniId;
+    @OneToMany(mappedBy = "muniId")
+    private List<Enderecos> enderecosList;
 
     public Municipios() {
     }
@@ -198,6 +202,15 @@ public class Municipios implements Serializable {
 
     public void setMunMuniId(Municipios munMuniId) {
         this.munMuniId = munMuniId;
+    }
+
+    @XmlTransient
+    public List<Enderecos> getEnderecosList() {
+        return enderecosList;
+    }
+
+    public void setEnderecosList(List<Enderecos> enderecosList) {
+        this.enderecosList = enderecosList;
     }
 
     @Override

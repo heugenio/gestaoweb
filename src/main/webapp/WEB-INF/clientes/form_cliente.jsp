@@ -6,6 +6,7 @@
 
 
 <form id="formAlteraCliente">
+	<input type="hidden" id="pessId" name="pessId" value="" />
 	<div class="row">
 		<div class="input-field col s12">
 			<label for="pessNome">Nome Completo/Fantasia *</label> <input
@@ -77,17 +78,27 @@
 		<div class="input-field col s4">
 			<select data-error=".errorTxt9" id="cargId" name="cargId">
 				<option value="" disabled selected>Escolha uma opção</option>
+				<c:forEach items="${listaCargos}" var="cargos">
+					<option value="${cargos.cargId}">${cargos.cargNome}</option>
+				</c:forEach>
 			</select> <label for="cargId">Cargo</label>
 			<div class="errorTxt9"></div>
 		</div>
 		<div class="input-field col s4">
 			<select data-error=".errorTxt10" id="profId" name="profId">
 				<option value="" disabled selected>Escolha uma opção</option>
+				<c:forEach items="${listaProfissoes}" var="profissao">
+					<option value="${profissao.profId}">${profissao.profNome}</option>
+				</c:forEach>
 			</select> <label for="profId">Profissão</label>
 			<div class="errorTxt10"></div>
 		</div>
 		<div class="input-field col s4">
 			<select data-error=".errorTxt11" id="ncndId" name="ncndId">
+			<option value="" disabled selected>Escolha uma opção</option>
+			<c:forEach items="${listaNacionalidades}" var="nacionalidade">
+					<option value="${nacionalidade.ncndId}">${nacionalidade.ncndNome}</option>
+				</c:forEach>
 			</select> <label for="ncndId">Nacionalidade</label>
 			<div class="errorTxt11"></div>
 		</div>

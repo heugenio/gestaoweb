@@ -7,6 +7,7 @@ package br.com.hjsystems.gestaoweb.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,20 +17,22 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Daniel
  */
 @Entity
-@Table(name = "PESSOAS")
+@Table(name = "PESSOAS", catalog = "GriffePneus", schema = "dbo")
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Pessoas.findAll", query = "SELECT p FROM Pessoas p"),
     @NamedQuery(name = "Pessoas.findByPessId", query = "SELECT p FROM Pessoas p WHERE p.pessId = :pessId"),
@@ -124,6 +127,8 @@ public class Pessoas implements Serializable {
     @JoinColumn(name = "PROF_ID", referencedColumnName = "PROF_ID")
     @ManyToOne
     private Profissoes profId;
+    @OneToMany(mappedBy = "pessId")
+    private List<Enderecos> enderecosList;
 
     public Pessoas() {
     }
@@ -275,7 +280,6 @@ public class Pessoas implements Serializable {
         this.pessDataAtualizacao = pessDataAtualizacao;
     }
 
-    @JsonIgnore
     public Cargos getCargId() {
         return cargId;
     }
@@ -284,7 +288,6 @@ public class Pessoas implements Serializable {
         this.cargId = cargId;
     }
 
-    @JsonIgnore
     public Municipios getMuniId() {
         return muniId;
     }
@@ -293,7 +296,6 @@ public class Pessoas implements Serializable {
         this.muniId = muniId;
     }
 
-    @JsonIgnore
     public Nacionalidades getNcndId() {
         return ncndId;
     }
@@ -302,13 +304,21 @@ public class Pessoas implements Serializable {
         this.ncndId = ncndId;
     }
 
-    @JsonIgnore
     public Profissoes getProfId() {
         return profId;
     }
 
     public void setProfId(Profissoes profId) {
         this.profId = profId;
+    }
+
+    @XmlTransient
+    public List<Enderecos> getEnderecosList() {
+        return enderecosList;
+    }
+
+    public void setEnderecosList(List<Enderecos> enderecosList) {
+        this.enderecosList = enderecosList;
     }
 
     @Override

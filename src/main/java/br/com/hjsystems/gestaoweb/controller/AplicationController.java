@@ -11,7 +11,12 @@ public class AplicationController {
 	@RequestMapping("/")
     public String indexTemplate(Model model) {
         return "index";
-        
     }
+	
+	@RequestMapping("/mensagem")
+    public String mensagem(Model model) {
+        return "fragments/template-mensagem";
+    }
+	
 
 }

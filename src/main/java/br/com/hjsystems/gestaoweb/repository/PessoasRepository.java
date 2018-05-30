@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import br.com.hjsystems.gestaoweb.entity.Pessoas;
 
 @Repository
-public interface PessoasRepository extends JpaRepository<Pessoas, Integer>{
+public interface PessoasRepository extends JpaRepository<Pessoas, String>{
 
 	@Query("Select p from Pessoas p where p.pessCpfcnpj like %?1%")
 	List<Pessoas> findByCPF(String pessoaCPF);
@@ -33,4 +33,5 @@ public interface PessoasRepository extends JpaRepository<Pessoas, Integer>{
 			"where PESS_ESTADO_CIVIL is not null\r\n" + 
 			"GROUP BY PESS_ESTADO_CIVIL", nativeQuery = true)
 	List<String> findEstadoCivil();
+
 }

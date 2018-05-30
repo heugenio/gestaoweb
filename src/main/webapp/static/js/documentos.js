@@ -101,7 +101,7 @@ function campoDocumento(obj, tipo){
             if (ctrlDown && tecla == vKey){
                 e.target.value="";
             }
-            console.log(tecla);
+           // console.log(tecla);
             if(tecla===27 || tecla===46) e.target.value = "";
         }
         oldValue = obj.value.replace(/\D/g, "");
@@ -110,7 +110,7 @@ function campoDocumento(obj, tipo){
         atribuiValoresParaAgregados(obj, tipo);
     },
     inputHandler= function(e) {
-        console.log("ta aqui input");
+        //console.log("ta aqui input");
         newValue = obj.value.replace(/\D/g, "");
         if(newValue!==oldValue && typeof newValue !== "undefined"){
             if((newValue.length<=14 && tipo === "cnpj") || (newValue.length<=14 && tipo === "") || (newValue.length<=11 && tipo === "cpf")){
@@ -131,7 +131,7 @@ function campoDocumento(obj, tipo){
         atribuiValoresParaAgregados(obj, tipo);
     },
     cursorHandler=function(e) {
-        console.log("cursor")
+        //console.log("cursor")
         e.target.selectionStart = e.target.selectionEnd = 10000;
         atribuiValoresParaAgregados(obj, tipo);
     };
