@@ -50,7 +50,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
     @NamedQuery(name = "Pessoas.findByPessUrl", query = "SELECT p FROM Pessoas p WHERE p.pessUrl = :pessUrl"),
     @NamedQuery(name = "Pessoas.findByPessSituacao", query = "SELECT p FROM Pessoas p WHERE p.pessSituacao = :pessSituacao"),
     @NamedQuery(name = "Pessoas.findByPessCodigo", query = "SELECT p FROM Pessoas p WHERE p.pessCodigo = :pessCodigo"),
-    @NamedQuery(name = "Pessoas.findByPessEndeId", query = "SELECT p FROM Pessoas p WHERE p.pessEndeId = :pessEndeId"),
     @NamedQuery(name = "Pessoas.findByPessLASTUPDATE", query = "SELECT p FROM Pessoas p WHERE p.pessLASTUPDATE = :pessLASTUPDATE"),
     @NamedQuery(name = "Pessoas.findByPessDataAtualizacao", query = "SELECT p FROM Pessoas p WHERE p.pessDataAtualizacao = :pessDataAtualizacao")})
 public class Pessoas implements Serializable {
@@ -125,12 +124,12 @@ public class Pessoas implements Serializable {
     @JoinColumn(name = "PROF_ID", referencedColumnName = "PROF_ID")
     @ManyToOne
     private Profissoes profId;
-    @Size(max = 22)
-    @Column(name = "PESS_ENDE_ID")
-    private String pessEndeId;
-    @OneToMany(mappedBy = "pessId")
-    private List<Telefones> telefonesList;
-
+/*//    @Size(max = 22)
+//    @Column(name = "PESS_ENDE_ID")
+//    private String pessEndeId;
+//    @OneToMany(mappedBy = "pessId")
+//    private List<Telefones> telefonesList;
+*/
     public Pessoas() {
     }
 
@@ -257,13 +256,13 @@ public class Pessoas implements Serializable {
         this.pessCodigo = pessCodigo;
     }
 
-    public String getPessEndeId() {
+/*    public String getPessEndeId() {
         return pessEndeId;
     }
 
     public void setPessEndeId(String pessEndeId) {
         this.pessEndeId = pessEndeId;
-    }
+    }*/
 
     public Date getPessLASTUPDATE() {
         return pessLASTUPDATE;
@@ -338,13 +337,13 @@ public class Pessoas implements Serializable {
         return "br.com.hjsystems.gestaoweb.entity.Pessoas[ pessId=" + pessId + " ]";
     }
 
-    @XmlTransient
+/*    @XmlTransient
     public List<Telefones> getTelefonesList() {
         return telefonesList;
     }
 
     public void setTelefonesList(List<Telefones> telefonesList) {
         this.telefonesList = telefonesList;
-    }
+    }*/
     
 }

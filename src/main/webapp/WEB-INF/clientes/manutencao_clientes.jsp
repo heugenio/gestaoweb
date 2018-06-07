@@ -88,7 +88,7 @@
     <div class="modal-content">
         <h4 id="modalTituloCliente" >Modal Header</h4>
         <div class="divider"></div>
-        <div class="container" id="corpoModal">
+        <div class="" id="corpoModal">
 
         </div>
     </div>

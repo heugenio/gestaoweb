@@ -26,15 +26,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.hjsystems.gestaoweb.dto.GeradorDto;
 import br.com.hjsystems.gestaoweb.entity.Cargos;
+import br.com.hjsystems.gestaoweb.entity.DocumentosFiscais;
 import br.com.hjsystems.gestaoweb.entity.Nacionalidades;
+import br.com.hjsystems.gestaoweb.entity.OrcamentosVendas;
+import br.com.hjsystems.gestaoweb.entity.OrdemServico;
+import br.com.hjsystems.gestaoweb.entity.Pedidos;
 import br.com.hjsystems.gestaoweb.entity.Pessoas;
 import br.com.hjsystems.gestaoweb.entity.Profissoes;
 import br.com.hjsystems.gestaoweb.propertyeditors.CargosPropertyEditor;
 import br.com.hjsystems.gestaoweb.propertyeditors.NacionalidadesPropertyEditor;
 import br.com.hjsystems.gestaoweb.propertyeditors.ProfissoesPropertyEditor;
 import br.com.hjsystems.gestaoweb.repository.CargosRepository;
+import br.com.hjsystems.gestaoweb.repository.DocumentosFiscaisRepository;
 import br.com.hjsystems.gestaoweb.repository.EnderecosRepository;
 import br.com.hjsystems.gestaoweb.repository.NacionalidadesRepository;
+import br.com.hjsystems.gestaoweb.repository.OrcamentoVendasRepository;
+import br.com.hjsystems.gestaoweb.repository.OrdemServicoRepository;
+import br.com.hjsystems.gestaoweb.repository.PedidosRepository;
 import br.com.hjsystems.gestaoweb.repository.PessoasRepository;
 import br.com.hjsystems.gestaoweb.repository.ProfissoesRepository;
 import br.com.hjsystems.gestaoweb.repository.TelefonesRepository;
@@ -63,6 +71,15 @@ public class ClientesController {
 	EnderecosRepository enderecosRepo;
 	@Autowired
 	TelefonesRepository telefoneRepo;
+	@Autowired
+	OrdemServicoRepository ordemServRepo;
+	@Autowired
+	PedidosRepository pedidosRepo;
+	@Autowired
+	DocumentosFiscaisRepository documentosFiscaisRepo;
+	@Autowired
+	OrcamentoVendasRepository orcamentoVendasRepo;
+	
 	@Autowired
 	GeradorDto geraDto;
 
@@ -147,10 +164,25 @@ public class ClientesController {
 	@PostMapping("/deletar/{pessId}")
 	public ResponseEntity<String> deletar(@PathVariable String pessId ) {
 		try {
-			enderecosRepo.deleteByPessoa(pessRepo.findById(pessId).get());
-			telefoneRepo.deleteByPessoa(pessRepo.findById(pessId).get());
-			pessRepo.deleteById(pessId);
-			return new ResponseEntity<>("", HttpStatus.OK);
+			List<OrdemServico> listaOs = ordemServRepo.findByPessoa(pessRepo.findById(pessId).get());
+			List<Pedidos> listaPedidos = pedidosRepo.findByPessoa(pessRepo.findById(pessId).get());
+			List<DocumentosFiscais> listaDocumentosFiscais = documentosFiscaisRepo.findByPessoa(pessRepo.findById(pessId).get());
+			List<OrcamentosVendas> listaOrcamentoVendas = orcamentoVendasRepo.findByPessoa(pessRepo.findById(pessId).get());
+			
+			if( !listaOs.isEmpty() ) {
+				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua ordem de serviço.", HttpStatus.OK);
+			}else if(!listaPedidos.isEmpty()){
+				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua pedidos.", HttpStatus.OK);
+			}else if(!listaDocumentosFiscais.isEmpty()){
+				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua notas fiscais.", HttpStatus.OK);
+			}else if(!listaOrcamentoVendas.isEmpty()){
+				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua orçamentos.", HttpStatus.OK);
+			}else {
+				enderecosRepo.deleteByPessoa(pessRepo.findById(pessId).get());
+				telefoneRepo.deleteByPessoa(pessRepo.findById(pessId).get());
+				pessRepo.deleteById(pessId);
+				return new ResponseEntity<>("", HttpStatus.OK);
+			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			System.out.println(e.toString());
