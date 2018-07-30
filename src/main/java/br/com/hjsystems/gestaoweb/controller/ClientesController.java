@@ -15,30 +15,34 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
 import br.com.hjsystems.gestaoweb.dto.GeradorDto;
+import br.com.hjsystems.gestaoweb.entity.BairrosMunicipios;
 import br.com.hjsystems.gestaoweb.entity.Cargos;
 import br.com.hjsystems.gestaoweb.entity.DocumentosFiscais;
+import br.com.hjsystems.gestaoweb.entity.Estados;
+import br.com.hjsystems.gestaoweb.entity.Municipios;
 import br.com.hjsystems.gestaoweb.entity.Nacionalidades;
 import br.com.hjsystems.gestaoweb.entity.OrcamentosVendas;
 import br.com.hjsystems.gestaoweb.entity.OrdemServico;
 import br.com.hjsystems.gestaoweb.entity.Pedidos;
 import br.com.hjsystems.gestaoweb.entity.Pessoas;
 import br.com.hjsystems.gestaoweb.entity.Profissoes;
+import br.com.hjsystems.gestaoweb.entity.TiposEndereco;
 import br.com.hjsystems.gestaoweb.propertyeditors.CargosPropertyEditor;
 import br.com.hjsystems.gestaoweb.propertyeditors.NacionalidadesPropertyEditor;
 import br.com.hjsystems.gestaoweb.propertyeditors.ProfissoesPropertyEditor;
+import br.com.hjsystems.gestaoweb.repository.BairrosMunicipiosRepository;
 import br.com.hjsystems.gestaoweb.repository.CargosRepository;
 import br.com.hjsystems.gestaoweb.repository.DocumentosFiscaisRepository;
 import br.com.hjsystems.gestaoweb.repository.EnderecosRepository;
+import br.com.hjsystems.gestaoweb.repository.EstadosRepository;
+import br.com.hjsystems.gestaoweb.repository.MunicipiosRepository;
 import br.com.hjsystems.gestaoweb.repository.NacionalidadesRepository;
 import br.com.hjsystems.gestaoweb.repository.OrcamentoVendasRepository;
 import br.com.hjsystems.gestaoweb.repository.OrdemServicoRepository;
@@ -46,6 +50,7 @@ import br.com.hjsystems.gestaoweb.repository.PedidosRepository;
 import br.com.hjsystems.gestaoweb.repository.PessoasRepository;
 import br.com.hjsystems.gestaoweb.repository.ProfissoesRepository;
 import br.com.hjsystems.gestaoweb.repository.TelefonesRepository;
+import br.com.hjsystems.gestaoweb.repository.TiposEnderecoRepository;
 import br.com.hjsystems.gestaoweb.utilitarios.Utilitarios;
 
 @Controller
@@ -79,7 +84,15 @@ public class ClientesController {
 	DocumentosFiscaisRepository documentosFiscaisRepo;
 	@Autowired
 	OrcamentoVendasRepository orcamentoVendasRepo;
-	
+	@Autowired
+        MunicipiosRepository municipioRepo;
+        @Autowired
+        EstadosRepository estadoRepo;
+        @Autowired
+        BairrosMunicipiosRepository bairroMunicipioRepo;
+        @Autowired
+        TiposEnderecoRepository tiposEnderecoRepo;
+        
 	@Autowired
 	GeradorDto geraDto;
 
@@ -106,6 +119,20 @@ public class ClientesController {
 
 		return new ResponseEntity<>(listaPessoas, HttpStatus.OK);
 	}
+        
+        @GetMapping("/buscamunicipios/{estaId}")
+        public ResponseEntity<List<Municipios>> buscaMunicipios(Model model, @PathVariable String estaId){
+            List<Municipios> listaMunicipio = new ArrayList<>();
+            listaMunicipio = municipioRepo.findByEstadoId(estaId);
+            return new ResponseEntity<>(listaMunicipio, HttpStatus.OK);
+        }
+        
+        @GetMapping("/buscabairros/{muniId}")
+        public ResponseEntity<List<BairrosMunicipios>> buscaBairros(Model model, @PathVariable String muniId){
+            List<BairrosMunicipios> listaBairrosMunicipios = new ArrayList<>();
+            listaBairrosMunicipios = bairroMunicipioRepo.findByMuniId(muniId);
+            return new ResponseEntity<>(listaBairrosMunicipios, HttpStatus.OK);
+        }
 
 	@GetMapping("/buscapagina/{ref}")
 	public String gereciaPaginas(Model model, @PathVariable String ref) {
@@ -123,11 +150,17 @@ public class ClientesController {
 		List<Cargos> listaCargos = cargoRepo.findAll();
 		List<Profissoes> listaProfissoes = profissaoRepo.findAll();
 		List<Nacionalidades> listaNacionalidades = NacionalidadeRepo.findAll();
+                List<Estados> listaEstados = estadoRepo.findAll(); 
+                List<String> listaTiposLogradouro = enderecosRepo.findAllTipoLogradouro();
+                List<TiposEndereco> listaTiposEndereco = tiposEnderecoRepo.findAll();
 		model.addAttribute("listaEscolaridade", listaEscolaridade);
 		model.addAttribute("listaEstadoCivil", listaEstadoCivil);
 		model.addAttribute("listaCargos", listaCargos);
 		model.addAttribute("listaProfissoes", listaProfissoes);
 		model.addAttribute("listaNacionalidades", listaNacionalidades);
+                model.addAttribute("listaEstados", listaEstados);
+                model.addAttribute("listaTiposLogradouro",listaTiposLogradouro);
+                model.addAttribute("listaTiposEndereco", listaTiposEndereco);
 		return retorno;
 	}
 

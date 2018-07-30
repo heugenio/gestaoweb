@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.hjsystems.gestaoweb.entity.Enderecos;
 import br.com.hjsystems.gestaoweb.entity.Pessoas;
+import java.util.List;
 
 public interface EnderecosRepository extends JpaRepository<Enderecos, String> {
 	
@@ -23,4 +24,6 @@ public interface EnderecosRepository extends JpaRepository<Enderecos, String> {
 	@Query("delete from Enderecos e where e.pessId = ?1")
 	void deleteByPessoa (Pessoas pess);
 
+        @Query("select e.endeTipoLogradouro from Enderecos e where e.endeTipoLogradouro <> null group by e.endeTipoLogradouro order by e.endeTipoLogradouro")
+        List<String> findAllTipoLogradouro();
 }

@@ -44,8 +44,8 @@ public class BairrosMunicipios implements Serializable {
     @Column(name = "BrMu_LASTUPDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date brMuLASTUPDATE;
-    @OneToMany(mappedBy = "brmuId")
-    private List<RotasBairros> rotasBairrosList;
+//    @OneToMany(mappedBy = "brmuId")
+//    private List<RotasBairros> rotasBairrosList;
     @JoinColumn(name = "BAIR_ID", referencedColumnName = "BAIR_ID")
     @ManyToOne
     private Bairros bairId;
@@ -76,14 +76,14 @@ public class BairrosMunicipios implements Serializable {
         this.brMuLASTUPDATE = brMuLASTUPDATE;
     }
 
-    @XmlTransient
-    public List<RotasBairros> getRotasBairrosList() {
-        return rotasBairrosList;
-    }
-
-    public void setRotasBairrosList(List<RotasBairros> rotasBairrosList) {
-        this.rotasBairrosList = rotasBairrosList;
-    }
+//    @XmlTransient
+//    public List<RotasBairros> getRotasBairrosList() {
+//        return rotasBairrosList;
+//    }
+//
+//    public void setRotasBairrosList(List<RotasBairros> rotasBairrosList) {
+//        this.rotasBairrosList = rotasBairrosList;
+//    }
 
     public Bairros getBairId() {
         return bairId;

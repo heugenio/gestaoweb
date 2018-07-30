@@ -75,8 +75,6 @@ public class Municipios implements Serializable {
     @Size(max = 60)
     @Column(name = "MUNI_NOME_PADRAO")
     private String muniNomePadrao;
-    @OneToMany(mappedBy = "munMuniId")
-    private List<Municipios> municipiosList;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "MUNI_DISTANCIA_KM")
     private BigDecimal muniDistanciaKm;
@@ -87,9 +85,9 @@ public class Municipios implements Serializable {
     @ManyToOne
     @JsonIgnore
     private Estados estaId;
-    @JoinColumn(name = "MUN_MUNI_ID", referencedColumnName = "MUNI_ID")
-    @ManyToOne
-    private Municipios munMuniId;
+//    @JoinColumn(name = "MUN_MUNI_ID", referencedColumnName = "MUNI_ID")
+//    @ManyToOne
+//    private Municipios munMuniId;
 
     public Municipios() {
     }
@@ -177,14 +175,14 @@ public class Municipios implements Serializable {
         this.estaId = estaId;
     }
 
-    @JsonIgnore
-    public Municipios getMunMuniId() {
-        return munMuniId;
-    }
-
-    public void setMunMuniId(Municipios munMuniId) {
-        this.munMuniId = munMuniId;
-    }
+//    @JsonIgnore
+//    public Municipios getMunMuniId() {
+//        return munMuniId;
+//    }
+//
+//    public void setMunMuniId(Municipios munMuniId) {
+//        this.munMuniId = munMuniId;
+//    }
 
     @Override
     public int hashCode() {
@@ -210,14 +208,5 @@ public class Municipios implements Serializable {
     public String toString() {
         return "br.com.hjsystems.gestaoweb.entity.Municipios[ muniId=" + muniId + " ]";
     }
-
-    @XmlTransient
-    public List<Municipios> getMunicipiosList() {
-        return municipiosList;
-    }
-
-    public void setMunicipiosList(List<Municipios> municipiosList) {
-        this.municipiosList = municipiosList;
-    }
-    
+   
 }

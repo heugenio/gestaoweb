@@ -147,23 +147,23 @@
                 <div id="tabEndereco" class="col s12">
                     <form id="formEndereco" style="margin-top: 20px;">
                         <div class="row">
-                            <div class="input-field col s6">
-                                <select data-error=".errorTxt1" id="muniId" name="muniId">
+                            <div class="input-field col s3">
+                                <select data-error=".errorTxt1" id="estaId" name="">
                                     <option value="" disabled selected>Escolha uma opção</option>
-                                    <c:forEach items="${listaCargos}" var="cargos">
-                                        <option value="${cargos.cargId}">${cargos.cargNome}</option>
+                                    <c:forEach items="${listaEstados}" var="estado">
+                                        <option value="${estado.estaId}">${estado.estaUf}</option>
                                     </c:forEach>
                                 </select> 
+                                <label for="estaId">Estado</label>
+                                <div class="errorTxt1"></div>
+                            </div>
+                            <div class="input-field col s4">
+                                <select data-error=".errorTxt1" id="muniId" name="muniId"></select> 
                                 <label for="muniId">Municipio</label>
                                 <div class="errorTxt1"></div>
                             </div>
-                            <div class="input-field col s6">
-                                <select data-error=".errorTxt2" id="bairId" name="bairId">
-                                    <option value="" disabled selected>Escolha uma opção</option>
-                                    <c:forEach items="${listaProfissoes}" var="profissao">
-                                        <option value="${profissao.profId}">${profissao.profNome}</option>
-                                    </c:forEach>
-                                </select>
+                            <div class="input-field col s5">
+                                <select data-error=".errorTxt2" id="bairId" name="bairId"></select>
                                 <label for="bairId">Bairro</label>
                                 <div class="errorTxt2"></div>
                             </div>
@@ -172,16 +172,16 @@
                             <div class="input-field col s3">
                                 <select data-error=".errorTxt3" id="endeTipoLogradouro" name="endeTipoLogradouro">
                                     <option value="" disabled selected>Escolha uma opção</option>
-                                    <c:forEach items="${listaCargos}" var="cargos">
-                                        <option value="${cargos.cargId}">${cargos.cargNome}</option>
+                                    <c:forEach items="${listaTiposLogradouro}" var="tipos">
+                                        <option value="${tipos}">${tipos}</option>
                                     </c:forEach>
                                 </select> 
                                 <label for="muniId">Tipo Log.</label>
                                 <div class="errorTxt3"></div>
                             </div>
                             <div class="input-field col s9">
-                                <label for="tpenId">Logradouro</label>
-                                <input id="tpenId" name="tpenId" type="text" class="campo-documento" data-error=".errorTxt4">
+                                <label for="endeLogradouro">Logradouro</label>
+                                <input id="endeLogradouro" name="endeLogradouro" type="text" class="" data-error=".errorTxt4">
                                 <div class="errorTxt4"></div>
                             </div>
                         </div>
@@ -206,8 +206,8 @@
                             <div class="input-field col s4">
                                 <select data-error=".errorTxt8" id="tpenId" name="tpenId">
                                     <option value="" disabled selected>Escolha uma opção</option>
-                                    <c:forEach items="${listaCargos}" var="cargos">
-                                        <option value="${cargos.cargId}">${cargos.cargNome}</option>
+                                    <c:forEach items="${listaTiposEndereco}" var="tipos">
+                                        <option value="${tipos.tpenId}">${tipos.tpenNome}</option>
                                     </c:forEach>
                                 </select> 
                                 <label for="tpenId">Tipo Ende.</label>
@@ -240,7 +240,7 @@
                     </form>
                     <div class="row">
                         <div class="input-field col s3">
-                            <button type="button" class="btn waves-effect waves-light">ADD <i class="material-icons right">send</i></button>
+                            <button id="btnAddEndereco" type="button" class="btn waves-effect waves-light">ADD <i class="material-icons right">send</i></button>
                         </div>
                     </div>
                     <div class="row">

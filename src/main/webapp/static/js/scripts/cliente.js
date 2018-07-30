@@ -27,14 +27,12 @@ $(document).ready(
                 }
             });
 
-            $('#cpf').on('propertychange change paste input keyup mouseup',
-                    function () {
-                        $('#nome').prop("disabled", $('#cpf').val() !== '');
-                    });
-            $('#nome').on('propertychange change paste input keyup mouseup',
-                    function () {
-                        $('#cpf').prop("disabled", $('#nome').val() !== '');
-                    });
+            $('#cpf').on('propertychange change paste input keyup mouseup', function () {
+                $('#nome').prop("disabled", $('#cpf').val() !== '');
+            });
+            $('#nome').on('propertychange change paste input keyup mouseup', function () {
+                $('#cpf').prop("disabled", $('#nome').val() !== '');
+            });
         });
 
 var initBotoesManutencaoClientes = function () {
@@ -66,9 +64,7 @@ var initBotoesManutencaoClientes = function () {
         var obj = tabelaClientes.row('.selected').data();
 
         $('#corpoModal').load('buscapagina/alterar', function () {
-            $('ul.tabs').tabs({
-              swipeable:true  
-            });
+            $('ul.tabs').tabs();
             iniciaDatePiker();
             initFormValidate();
             inicializarScriptCampoDocumento();
@@ -103,6 +99,8 @@ var initBotoesManutencaoClientes = function () {
             iniciaDatePiker();
             initFormValidate();
             inicializarScriptCampoDocumento();
+            inicializaSelects();
+            inicializaBtnEndereco();
             $('select').material_select();
             $('#pessNome').blur(function () {
                 $('#pessRazaoSocial').val($('#pessNome').val());
@@ -119,15 +117,14 @@ var initBotoesManutencaoClientes = function () {
                         $('#modalCliente').modal('close');
                         initDataTableClientes(pessoas);
                         Materialize.toast('Cliente cadastrado com sucesso!', 4000);
-                    })
-                            .fail(function (retorno) {
-                                // $('#modalCliente').modal('close');
-                                if (retorno.status == '409') {
-                                    showMensageDialog('O CPF informado, ja existe na base de Dados!');
-                                } else {
-                                    showMensageDialog('Ocorreu um erro ao salvar o cliente, por favor tente novamente. Se o erro persistir,entre em contato com o suporte.');
-                                }
-                            });
+                    }).fail(function (retorno) {
+                        // $('#modalCliente').modal('close');
+                        if (retorno.status == '409') {
+                            showMensageDialog('O CPF informado, ja existe na base de Dados!');
+                        } else {
+                            showMensageDialog('Ocorreu um erro ao salvar o cliente, por favor tente novamente. Se o erro persistir,entre em contato com o suporte.');
+                        }
+                    });
                 }
             });
             $("#formAlteraCliente").on('submit', function (e) {
@@ -163,6 +160,62 @@ var initBotoesManutencaoClientes = function () {
         } else {
             showMensageDialog('Você precisa selecionar um cliente para excluir!');
         }
+    });
+};
+
+var inicializaBtnEndereco = function () {
+    $('#btnAddEndereco').click(function () {
+        var isvalid = $("#formEndereco").valid();
+        if (isvalid) {
+            var dados = $("#formEndereco").serialize();
+            var url = '../enderecos/salvar';
+            $.post(url, dados).done(function (endereco, status, jqxhr) {
+                alert(endereco);
+            }).fail(function (retorno) {
+
+            });
+        }
+    });
+    $("#formEndereco").on('submit', function (e) {
+        e.preventDefault();
+    });
+};
+
+var inicializaSelects = function () {
+    $('#estaId').change(function () {
+        $('#muniId').empty().append('<option value="" disabled selected>Escolha uma opção</option>');
+        var url = 'buscamunicipios/' + $('#estaId').val();
+        $.get(url).done(function (muicipios, status) {
+            $.each(muicipios, function (i, item) {
+                $('#muniId').append($('<option>', {
+                    value: item.muniId,
+                    text: item.muniNome
+                }));
+            });
+        }).fail(function (msg, status, jxQhr) {
+            showMensageDialog('Ocorreu um erro ao buscar os municipios, por favor tente novamente. <br> <small>Se o erro persistir, por favor entre em contato com o suporte.</smal>' +
+                    '<br> <small><strong>Erro: </strong>' + msg.responseText + '</small>');
+        }).always(function () {
+            $('select').material_select();
+        });
+    });
+
+    $('#muniId').change(function () {
+        $('#bairId').empty().append('<option value="" disabled selected>Escolha uma opção</option>');
+        var url = 'buscabairros/' + $('#muniId').val();
+        $.get(url).done(function (bairros, status) {
+            $.each(bairros, function (i, item) {
+                $('#bairId').append($('<option>', {
+                    value: item.bairId.bairId,
+                    text: item.bairId.bairNome
+                }));
+            });
+        }).fail(function (msg, status, jxQhr) {
+            showMensageDialog('Ocorreu um erro ao buscar os bairros, por favor tente novamente. <br> <small>Se o erro persistir, por favor entre em contato com o suporte.</smal>' +
+                    '<br> <small><strong>Erro: </strong>' + msg.responseText + '</small>');
+        }).always(function () {
+            $('select').material_select();
+        });
     });
 };
 
@@ -202,19 +255,19 @@ var initFormValidate = function () {
     $("#formAlteraCliente").validate({
         rules: {
             pessNome: {
-                required: true,
+                required: true
             },
             pessRazaoSocial: {
-                required: true,
+                required: true
             },
             pessCpfcnpj: {
-                required: true,
+                required: true
             },
             pessDataNascimento: {
-                required: true,
+                required: true
             },
             pessFisicoJuridico: {
-                required: true,
+                required: true
             },
             pessUrl: {
                 required: false,
@@ -224,34 +277,101 @@ var initFormValidate = function () {
         // For custom messages
         messages: {
             pessNome: {
-                required: "O nome do cliente é obrigatório !",
-                // minlength: "Enter at least 5 characters"
+                required: "O nome do cliente é obrigatório !"
+                        // minlength: "Enter at least 5 characters"
             },
             pessRazaoSocial: {
-                required: "A razão social é obrigatória !",
-                // minlength: "Enter at least 5 characters"
+                required: "A razão social é obrigatória !"
+                        // minlength: "Enter at least 5 characters"
             },
             pessCpfcnpj: {
-                required: "O CPF/CNPJ é obrigatório !",
-                // minlength: "Enter at least 5 characters"
+                required: "O CPF/CNPJ é obrigatório !"
+                        // minlength: "Enter at least 5 characters"
             },
             pessDataNascimento: {
-                required: "A data de nascimento é obrigatória !",
-                // minlength: "Enter at least 5 characters"
+                required: "A data de nascimento é obrigatória !"
+                        // minlength: "Enter at least 5 characters"
             },
             pessFisicoJuridico: {
-                required: "Selecione o tipo de pessoa !",
-                // minlength: "Enter at least 5 characters"
+                required: "Selecione o tipo de pessoa !"
+                        // minlength: "Enter at least 5 characters"
             }
         },
         errorElement: 'div',
         errorPlacement: function (error, element) {
             var placement = $(element).data('error');
             if (placement) {
-                $(placement).append(error)
+                $(placement).append(error);
             } else {
                 error.insertAfter(element);
             }
         }
     });
+
+    $("#formEndereco").validate({
+        rules: {
+            estaId: {
+                required: true
+            },
+            muniId: {
+                required: true
+            },
+            bairId: {
+                required: true
+            },
+            endeTipoLogradouro: {
+                required: true
+            },
+            endeLogradouro: {
+                required: true
+            },
+            endeCep: {
+                required: true
+            },
+            tpenId: {
+                required: true
+            },
+            endePadrao: {
+                required: true
+            }
+        },
+        // For custom messages
+        messages: {
+            estaId: {
+                required: "Você deve selecionar o estado"
+            },
+            muniId: {
+                required: "Você deve selecionar o municipio"
+            },
+            bairId: {
+                required: "Você deve selecionar o bairro"
+            },
+            endeTipoLogradouro: {
+                required: "Selecione o tipo do logradouro"
+            },
+            endeLogradouro: {
+                required: "Você deve informar o endereço"
+            },
+            endeCep: {
+                required: "Você deve informar o CEP"
+            },
+            tpenId: {
+                required: "Você deve selecionar o tipo do endereco"
+            },
+            endePadrao: {
+                required: "Você deve informar se o endereco e o padrão"
+            }
+        },
+        errorElement: 'div',
+        errorPlacement: function (error, element) {
+            var placement = $(element).data('error');
+            if (placement) {
+                $(placement).append(error);
+            } else {
+                error.insertAfter(element);
+            }
+        }
+    });
+
 }
+
