@@ -57,178 +57,178 @@ import br.com.hjsystems.gestaoweb.utilitarios.Utilitarios;
 @RequestMapping("/clientes")
 public class ClientesController {
 
-	@Autowired
-	CargosPropertyEditor cargoPropertyEditor;
-	@Autowired
-	NacionalidadesPropertyEditor nacionalidadePropertyEditor;
-	@Autowired
-	ProfissoesPropertyEditor profissoesPropertyEditor;
+    @Autowired
+    CargosPropertyEditor cargoPropertyEditor;
+    @Autowired
+    NacionalidadesPropertyEditor nacionalidadePropertyEditor;
+    @Autowired
+    ProfissoesPropertyEditor profissoesPropertyEditor;
 
-	@Autowired
-	PessoasRepository pessRepo;
-	@Autowired
-	CargosRepository cargoRepo;
-	@Autowired
-	ProfissoesRepository profissaoRepo;
-	@Autowired
-	NacionalidadesRepository NacionalidadeRepo;
-	@Autowired
-	EnderecosRepository enderecosRepo;
-	@Autowired
-	TelefonesRepository telefoneRepo;
-	@Autowired
-	OrdemServicoRepository ordemServRepo;
-	@Autowired
-	PedidosRepository pedidosRepo;
-	@Autowired
-	DocumentosFiscaisRepository documentosFiscaisRepo;
-	@Autowired
-	OrcamentoVendasRepository orcamentoVendasRepo;
-	@Autowired
-        MunicipiosRepository municipioRepo;
-        @Autowired
-        EstadosRepository estadoRepo;
-        @Autowired
-        BairrosMunicipiosRepository bairroMunicipioRepo;
-        @Autowired
-        TiposEnderecoRepository tiposEnderecoRepo;
-        
-	@Autowired
-	GeradorDto geraDto;
+    @Autowired
+    PessoasRepository pessRepo;
+    @Autowired
+    CargosRepository cargoRepo;
+    @Autowired
+    ProfissoesRepository profissaoRepo;
+    @Autowired
+    NacionalidadesRepository NacionalidadeRepo;
+    @Autowired
+    EnderecosRepository enderecosRepo;
+    @Autowired
+    TelefonesRepository telefoneRepo;
+    @Autowired
+    OrdemServicoRepository ordemServRepo;
+    @Autowired
+    PedidosRepository pedidosRepo;
+    @Autowired
+    DocumentosFiscaisRepository documentosFiscaisRepo;
+    @Autowired
+    OrcamentoVendasRepository orcamentoVendasRepo;
+    @Autowired
+    MunicipiosRepository municipioRepo;
+    @Autowired
+    EstadosRepository estadoRepo;
+    @Autowired
+    BairrosMunicipiosRepository bairroMunicipioRepo;
+    @Autowired
+    TiposEnderecoRepository tiposEnderecoRepo;
 
-	@GetMapping("/manutencao")
-	public String indexTemplate(Model model) {
-		return "clientes/manutencao_clientes";
+    @Autowired
+    GeradorDto geraDto;
 
-	}
+    @GetMapping("/manutencao")
+    public String indexTemplate(Model model) {
+        return "clientes/manutencao_clientes";
 
-	@GetMapping(value = { "/pesquisa/{tipoPesquisa}/{paramPesquisa}", "/pesquisa/{tipoPesquisa}" })
-	public ResponseEntity<List<Pessoas>> buscaClientes(Model model, @PathVariable String tipoPesquisa,
-			@PathVariable Optional<String> paramPesquisa) {
-		List<Pessoas> listaPessoas = new ArrayList<>();
-		String pesquisa = "";
-		if (paramPesquisa.isPresent()) {
-			pesquisa = paramPesquisa.get();
-		}
+    }
 
-		if (tipoPesquisa.equals("cpf")) {
-			listaPessoas = pessRepo.findByCPF(pesquisa);
-		} else {
-			listaPessoas = pessRepo.findByNome(pesquisa);
-		}
-
-		return new ResponseEntity<>(listaPessoas, HttpStatus.OK);
-	}
-        
-        @GetMapping("/buscamunicipios/{estaId}")
-        public ResponseEntity<List<Municipios>> buscaMunicipios(Model model, @PathVariable String estaId){
-            List<Municipios> listaMunicipio = new ArrayList<>();
-            listaMunicipio = municipioRepo.findByEstadoId(estaId);
-            return new ResponseEntity<>(listaMunicipio, HttpStatus.OK);
-        }
-        
-        @GetMapping("/buscabairros/{muniId}")
-        public ResponseEntity<List<BairrosMunicipios>> buscaBairros(Model model, @PathVariable String muniId){
-            List<BairrosMunicipios> listaBairrosMunicipios = new ArrayList<>();
-            listaBairrosMunicipios = bairroMunicipioRepo.findByMuniId(muniId);
-            return new ResponseEntity<>(listaBairrosMunicipios, HttpStatus.OK);
+    @GetMapping(value = {"/pesquisa/{tipoPesquisa}/{paramPesquisa}", "/pesquisa/{tipoPesquisa}"})
+    public ResponseEntity<List<Pessoas>> buscaClientes(Model model, @PathVariable String tipoPesquisa,
+            @PathVariable Optional<String> paramPesquisa) {
+        List<Pessoas> listaPessoas = new ArrayList<>();
+        String pesquisa = "";
+        if (paramPesquisa.isPresent()) {
+            pesquisa = paramPesquisa.get();
         }
 
-	@GetMapping("/buscapagina/{ref}")
-	public String gereciaPaginas(Model model, @PathVariable String ref) {
-		String retorno = "";
-		switch (ref) {
-		case "alterar":
-			retorno = "clientes/form_cliente";
-			break;
-		case "cadastrar":
-			retorno = "clientes/form_cliente";
-			break;
-		}
-		List<String> listaEscolaridade = pessRepo.findEscolaridade();
-		List<String> listaEstadoCivil = pessRepo.findEstadoCivil();
-		List<Cargos> listaCargos = cargoRepo.findAll();
-		List<Profissoes> listaProfissoes = profissaoRepo.findAll();
-		List<Nacionalidades> listaNacionalidades = NacionalidadeRepo.findAll();
-                List<Estados> listaEstados = estadoRepo.findAll(); 
-                List<String> listaTiposLogradouro = enderecosRepo.findAllTipoLogradouro();
-                List<TiposEndereco> listaTiposEndereco = tiposEnderecoRepo.findAll();
-		model.addAttribute("listaEscolaridade", listaEscolaridade);
-		model.addAttribute("listaEstadoCivil", listaEstadoCivil);
-		model.addAttribute("listaCargos", listaCargos);
-		model.addAttribute("listaProfissoes", listaProfissoes);
-		model.addAttribute("listaNacionalidades", listaNacionalidades);
-                model.addAttribute("listaEstados", listaEstados);
-                model.addAttribute("listaTiposLogradouro",listaTiposLogradouro);
-                model.addAttribute("listaTiposEndereco", listaTiposEndereco);
-		return retorno;
-	}
+        if (tipoPesquisa.equals("cpf")) {
+            listaPessoas = pessRepo.findByCPF(pesquisa);
+        } else {
+            listaPessoas = pessRepo.findByNome(pesquisa);
+        }
 
-	@PostMapping("/salvar")
-	public ResponseEntity<Pessoas> salvar(@Valid @ModelAttribute Pessoas pess, BindingResult bindingResult) {
+        return new ResponseEntity<>(listaPessoas, HttpStatus.OK);
+    }
 
-		if (bindingResult.hasErrors()) {
-			FieldError error = bindingResult.getFieldErrors().get(0);
-			System.out.println(error.getField() + " - " + error.getDefaultMessage());
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		} else {
-			String cpf = Utilitarios.removeCaracteres(pess.getPessCpfcnpj());
-			List<Pessoas> listaVerifica = pessRepo.findByCPF(cpf);
-			if (listaVerifica.isEmpty()) {
-				String id = geraDto.geraId("000640010001", "PESSOAS");
-				String codigo = geraDto.geraCodigo("000640010001", "PESSOAS");
-				pess.setPessId(id);
-				pess.setPessDataAtualizacao(new Date(System.currentTimeMillis()));
-				pess.setPessLASTUPDATE(new Date(System.currentTimeMillis()));
-				pess.setPessCpfcnpj(Utilitarios.removeCaracteres(pess.getPessCpfcnpj()));
-				// pess.setPessCodigo(codigo);
-				try {
-					pessRepo.save(pess);
-					return new ResponseEntity<>(pess, HttpStatus.OK);
-				} catch (Exception e) {
-					return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-				}
-			} else {
-				return new ResponseEntity<>(null, HttpStatus.CONFLICT);
-			}
-		}
-	}
+    @GetMapping("/buscamunicipios/{estaId}")
+    public ResponseEntity<List<Municipios>> buscaMunicipios(Model model, @PathVariable String estaId) {
+        List<Municipios> listaMunicipio = new ArrayList<>();
+        listaMunicipio = municipioRepo.findByEstadoId(estaId);
+        return new ResponseEntity<>(listaMunicipio, HttpStatus.OK);
+    }
 
-	@PostMapping("/deletar/{pessId}")
-	public ResponseEntity<String> deletar(@PathVariable String pessId ) {
-		try {
-			List<OrdemServico> listaOs = ordemServRepo.findByPessoa(pessRepo.findById(pessId).get());
-			List<Pedidos> listaPedidos = pedidosRepo.findByPessoa(pessRepo.findById(pessId).get());
-			List<DocumentosFiscais> listaDocumentosFiscais = documentosFiscaisRepo.findByPessoa(pessRepo.findById(pessId).get());
-			List<OrcamentosVendas> listaOrcamentoVendas = orcamentoVendasRepo.findByPessoa(pessRepo.findById(pessId).get());
-			
-			if( !listaOs.isEmpty() ) {
-				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua ordem de serviço.", HttpStatus.OK);
-			}else if(!listaPedidos.isEmpty()){
-				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua pedidos.", HttpStatus.OK);
-			}else if(!listaDocumentosFiscais.isEmpty()){
-				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua notas fiscais.", HttpStatus.OK);
-			}else if(!listaOrcamentoVendas.isEmpty()){
-				return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua orçamentos.", HttpStatus.OK);
-			}else {
-				enderecosRepo.deleteByPessoa(pessRepo.findById(pessId).get());
-				telefoneRepo.deleteByPessoa(pessRepo.findById(pessId).get());
-				pessRepo.deleteById(pessId);
-				return new ResponseEntity<>("", HttpStatus.OK);
-			}
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			System.out.println(e.toString());
-			return new ResponseEntity<>(e.getMessage().toString(), HttpStatus.BAD_REQUEST);
-		}
-	}
+    @GetMapping("/buscabairros/{muniId}")
+    public ResponseEntity<List<BairrosMunicipios>> buscaBairros(Model model, @PathVariable String muniId) {
+        List<BairrosMunicipios> listaBairrosMunicipios = new ArrayList<>();
+        listaBairrosMunicipios = bairroMunicipioRepo.findByMuniId(muniId);
+        return new ResponseEntity<>(listaBairrosMunicipios, HttpStatus.OK);
+    }
 
-	@InitBinder
-	public void initBinder(WebDataBinder webDataBinder) {
-		webDataBinder.registerCustomEditor(Cargos.class, cargoPropertyEditor);
-		webDataBinder.registerCustomEditor(Profissoes.class, profissoesPropertyEditor);
-		webDataBinder.registerCustomEditor(Nacionalidades.class, nacionalidadePropertyEditor);
+    @GetMapping("/buscapagina/{ref}")
+    public String gereciaPaginas(Model model, @PathVariable String ref) {
+        String retorno = "";
+        switch (ref) {
+            case "alterar":
+                retorno = "clientes/form_cliente";
+                break;
+            case "cadastrar":
+                retorno = "clientes/form_cliente";
+                break;
+        }
+        List<String> listaEscolaridade = pessRepo.findEscolaridade();
+        List<String> listaEstadoCivil = pessRepo.findEstadoCivil();
+        List<Cargos> listaCargos = cargoRepo.findAll();
+        List<Profissoes> listaProfissoes = profissaoRepo.findAll();
+        List<Nacionalidades> listaNacionalidades = NacionalidadeRepo.findAll();
+        List<Estados> listaEstados = estadoRepo.findAll();
+        List<String> listaTiposLogradouro = enderecosRepo.findAllTipoLogradouro();
+        List<TiposEndereco> listaTiposEndereco = tiposEnderecoRepo.findAll();
+        model.addAttribute("listaEscolaridade", listaEscolaridade);
+        model.addAttribute("listaEstadoCivil", listaEstadoCivil);
+        model.addAttribute("listaCargos", listaCargos);
+        model.addAttribute("listaProfissoes", listaProfissoes);
+        model.addAttribute("listaNacionalidades", listaNacionalidades);
+        model.addAttribute("listaEstados", listaEstados);
+        model.addAttribute("listaTiposLogradouro", listaTiposLogradouro);
+        model.addAttribute("listaTiposEndereco", listaTiposEndereco);
+        return retorno;
+    }
 
-	}
+    @PostMapping("/salvar")
+    public ResponseEntity<Pessoas> salvar(@Valid @ModelAttribute Pessoas pess, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            FieldError error = bindingResult.getFieldErrors().get(0);
+            System.out.println(error.getField() + " - " + error.getDefaultMessage());
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } else {
+            String cpf = Utilitarios.removeCaracteres(pess.getPessCpfcnpj());
+            List<Pessoas> listaVerifica = pessRepo.findByCPF(cpf);
+            if (listaVerifica.isEmpty()) {
+                String id = geraDto.geraId("000640010001", "PESSOAS");
+                String codigo = geraDto.geraCodigo("000640010001", "PESSOAS");
+                pess.setPessId(id);
+                pess.setPessDataAtualizacao(new Date(System.currentTimeMillis()));
+                pess.setPessLASTUPDATE(new Date(System.currentTimeMillis()));
+                pess.setPessCpfcnpj(Utilitarios.removeCaracteres(pess.getPessCpfcnpj()));
+                // pess.setPessCodigo(codigo);
+                try {
+                    pessRepo.save(pess);
+                    return new ResponseEntity<>(pess, HttpStatus.OK);
+                } catch (Exception e) {
+                    return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+                }
+            } else {
+                return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+            }
+        }
+    }
+
+    @PostMapping("/deletar/{pessId}")
+    public ResponseEntity<String> deletar(@PathVariable String pessId) {
+        try {
+            List<OrdemServico> listaOs = ordemServRepo.findByPessoa(pessRepo.findById(pessId).get());
+            List<Pedidos> listaPedidos = pedidosRepo.findByPessoa(pessRepo.findById(pessId).get());
+            List<DocumentosFiscais> listaDocumentosFiscais = documentosFiscaisRepo.findByPessoa(pessRepo.findById(pessId).get());
+            List<OrcamentosVendas> listaOrcamentoVendas = orcamentoVendasRepo.findByPessoa(pessRepo.findById(pessId).get());
+
+            if (!listaOs.isEmpty()) {
+                return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua ordem de serviço.", HttpStatus.OK);
+            } else if (!listaPedidos.isEmpty()) {
+                return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua pedidos.", HttpStatus.OK);
+            } else if (!listaDocumentosFiscais.isEmpty()) {
+                return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua notas fiscais.", HttpStatus.OK);
+            } else if (!listaOrcamentoVendas.isEmpty()) {
+                return new ResponseEntity<>("Não e Possível excluir uma pessoa que possua orçamentos.", HttpStatus.OK);
+            } else {
+                enderecosRepo.deleteByPessoa(pessRepo.findById(pessId).get());
+                telefoneRepo.deleteByPessoa(pessRepo.findById(pessId).get());
+                pessRepo.deleteById(pessId);
+                return new ResponseEntity<>("", HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println(e.toString());
+            return new ResponseEntity<>(e.getMessage().toString(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.registerCustomEditor(Cargos.class, cargoPropertyEditor);
+        webDataBinder.registerCustomEditor(Profissoes.class, profissoesPropertyEditor);
+        webDataBinder.registerCustomEditor(Nacionalidades.class, nacionalidadePropertyEditor);
+
+    }
 
 }
