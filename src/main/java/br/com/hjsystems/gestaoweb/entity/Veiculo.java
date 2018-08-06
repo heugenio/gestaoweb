@@ -55,8 +55,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Veiculo.findByVeicRntr", query = "SELECT v FROM Veiculo v WHERE v.veicRntr = :veicRntr"),
     @NamedQuery(name = "Veiculo.findByVeicStatus", query = "SELECT v FROM Veiculo v WHERE v.veicStatus = :veicStatus"),
     @NamedQuery(name = "Veiculo.findByVeicValor", query = "SELECT v FROM Veiculo v WHERE v.veicValor = :veicValor"),
-    @NamedQuery(name = "Veiculo.findByGrpoId", query = "SELECT v FROM Veiculo v WHERE v.grpoId = :grpoId"),
-    @NamedQuery(name = "Veiculo.findBySbgrId", query = "SELECT v FROM Veiculo v WHERE v.sbgrId = :sbgrId"),
     @NamedQuery(name = "Veiculo.findByVeicCodigoFabricacao", query = "SELECT v FROM Veiculo v WHERE v.veicCodigoFabricacao = :veicCodigoFabricacao"),
     @NamedQuery(name = "Veiculo.findByVeicDescricao", query = "SELECT v FROM Veiculo v WHERE v.veicDescricao = :veicDescricao")})
 public class Veiculo implements Serializable {
@@ -118,41 +116,18 @@ public class Veiculo implements Serializable {
     private String veicStatus;
     @Column(name = "VEIC_VALOR")
     private BigDecimal veicValor;
-    @Column(name = "GRPO_ID")
-    private String grpoId;
-    @Column(name = "SBGR_ID")
-    private String sbgrId;
     @Column(name = "VEIC_CODIGO_FABRICACAO")
     private String veicCodigoFabricacao;
-    @Lob
-    @Column(name = "VEIC_ACESSORIOS")
-    private String veicAcessorios;
     @Column(name = "VEIC_DESCRICAO")
     private String veicDescricao;
-    @OneToMany(mappedBy = "veicId")
-    private List<Pedidos> pedidosList;
-    @OneToMany(mappedBy = "veicId")
-    private List<LocacoesEquipamentos> locacoesEquipamentosList;
-    @OneToMany(mappedBy = "veicId")
-    private List<Entregas> entregasList;
-    @JoinColumn(name = "MUNI_ID", referencedColumnName = "MUNI_ID")
-    @ManyToOne
-    private Municipios muniId;
     @JoinColumn(name = "PESS_ID", referencedColumnName = "PESS_ID")
     @ManyToOne
-    private Pessoas pessId;
-    @OneToMany(mappedBy = "veicId")
-    private List<VeiculosClientes> veiculosClientesList;
-    @OneToMany(mappedBy = "veicId")
-    private List<OrdemServico> ordemServicoList;
+    private Pessoas pessTransp;
     @OneToMany(mappedBy = "veicId")
     private List<VeiculosMotoristas> veiculosMotoristasList;
     @OneToMany(mappedBy = "veicId")
-    private List<VeiculoObjopecoml> veiculoObjopecomlList;
-    @OneToMany(mappedBy = "veicId")
     private List<PessoasVeiculos> pessoasVeiculosList;
-    @OneToMany(mappedBy = "veicId")
-    private List<Expedicoes> expedicoesList;
+
 
     public Veiculo() {
     }
@@ -353,36 +328,12 @@ public class Veiculo implements Serializable {
         this.veicValor = veicValor;
     }
 
-    public String getGrpoId() {
-        return grpoId;
-    }
-
-    public void setGrpoId(String grpoId) {
-        this.grpoId = grpoId;
-    }
-
-    public String getSbgrId() {
-        return sbgrId;
-    }
-
-    public void setSbgrId(String sbgrId) {
-        this.sbgrId = sbgrId;
-    }
-
     public String getVeicCodigoFabricacao() {
         return veicCodigoFabricacao;
     }
 
     public void setVeicCodigoFabricacao(String veicCodigoFabricacao) {
         this.veicCodigoFabricacao = veicCodigoFabricacao;
-    }
-
-    public String getVeicAcessorios() {
-        return veicAcessorios;
-    }
-
-    public void setVeicAcessorios(String veicAcessorios) {
-        this.veicAcessorios = veicAcessorios;
     }
 
     public String getVeicDescricao() {
@@ -393,65 +344,12 @@ public class Veiculo implements Serializable {
         this.veicDescricao = veicDescricao;
     }
 
-    @XmlTransient
-    public List<Pedidos> getPedidosList() {
-        return pedidosList;
+    public Pessoas getPessTransp() {
+        return pessTransp;
     }
 
-    public void setPedidosList(List<Pedidos> pedidosList) {
-        this.pedidosList = pedidosList;
-    }
-
-    @XmlTransient
-    public List<LocacoesEquipamentos> getLocacoesEquipamentosList() {
-        return locacoesEquipamentosList;
-    }
-
-    public void setLocacoesEquipamentosList(List<LocacoesEquipamentos> locacoesEquipamentosList) {
-        this.locacoesEquipamentosList = locacoesEquipamentosList;
-    }
-
-    @XmlTransient
-    public List<Entregas> getEntregasList() {
-        return entregasList;
-    }
-
-    public void setEntregasList(List<Entregas> entregasList) {
-        this.entregasList = entregasList;
-    }
-
-    public Municipios getMuniId() {
-        return muniId;
-    }
-
-    public void setMuniId(Municipios muniId) {
-        this.muniId = muniId;
-    }
-
-    public Pessoas getPessId() {
-        return pessId;
-    }
-
-    public void setPessId(Pessoas pessId) {
-        this.pessId = pessId;
-    }
-
-    @XmlTransient
-    public List<VeiculosClientes> getVeiculosClientesList() {
-        return veiculosClientesList;
-    }
-
-    public void setVeiculosClientesList(List<VeiculosClientes> veiculosClientesList) {
-        this.veiculosClientesList = veiculosClientesList;
-    }
-
-    @XmlTransient
-    public List<OrdemServico> getOrdemServicoList() {
-        return ordemServicoList;
-    }
-
-    public void setOrdemServicoList(List<OrdemServico> ordemServicoList) {
-        this.ordemServicoList = ordemServicoList;
+    public void setPessTransp(Pessoas pessTransp) {
+        this.pessTransp = pessTransp;
     }
 
     @XmlTransient
@@ -464,30 +362,12 @@ public class Veiculo implements Serializable {
     }
 
     @XmlTransient
-    public List<VeiculoObjopecoml> getVeiculoObjopecomlList() {
-        return veiculoObjopecomlList;
-    }
-
-    public void setVeiculoObjopecomlList(List<VeiculoObjopecoml> veiculoObjopecomlList) {
-        this.veiculoObjopecomlList = veiculoObjopecomlList;
-    }
-
-    @XmlTransient
     public List<PessoasVeiculos> getPessoasVeiculosList() {
         return pessoasVeiculosList;
     }
 
     public void setPessoasVeiculosList(List<PessoasVeiculos> pessoasVeiculosList) {
         this.pessoasVeiculosList = pessoasVeiculosList;
-    }
-
-    @XmlTransient
-    public List<Expedicoes> getExpedicoesList() {
-        return expedicoesList;
-    }
-
-    public void setExpedicoesList(List<Expedicoes> expedicoesList) {
-        this.expedicoesList = expedicoesList;
     }
 
     @Override
